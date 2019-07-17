@@ -15,6 +15,8 @@ public interface GroupContract {
 
     boolean isExpanded();
 
+    String getDefaultAutoTypeSequence();
+
     byte[] getIconData();
 
     UUID getCustomIconUuid();

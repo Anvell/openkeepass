@@ -37,6 +37,9 @@ public class Group implements KeePassFileElement {
     @Element(name = "IsExpanded", required = false)
     private Boolean isExpanded;
 
+    @Element(name = "DefaultAutoTypeSequence", required = false)
+    private String defaultAutoTypeSequence;
+
     @ElementList(name = "Entry", inline = true, required = false)
     private List<Entry> entries = new ArrayList<Entry>();
 
@@ -52,6 +55,7 @@ public class Group implements KeePassFileElement {
         groups = groupContract.getGroups();
         iconId = groupContract.getIconId();
         isExpanded = groupContract.isExpanded();
+        defaultAutoTypeSequence = groupContract.getDefaultAutoTypeSequence();
         name = groupContract.getName();
         times = groupContract.getTimes();
         uuid = groupContract.getUuid();
@@ -162,6 +166,15 @@ public class Group implements KeePassFileElement {
         return isExpanded.booleanValue();
     }
 
+    /**
+     * Retrieves value which is used as auto type sequence.
+     *
+     * @return value of auto type sequence
+     */
+    public String getDefaultAutoTypeSequence() {
+        return defaultAutoTypeSequence;
+    }
+
     @Override
     public final int hashCode() {
         final int prime = 31;
@@ -171,6 +184,7 @@ public class Group implements KeePassFileElement {
         result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + iconId;
         result = prime * result + ((isExpanded == null) ? 0 : isExpanded.hashCode());
+        result = prime * result + ((defaultAutoTypeSequence == null) ? 0 : defaultAutoTypeSequence.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((times == null) ? 0 : times.hashCode());
         result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
@@ -207,6 +221,11 @@ public class Group implements KeePassFileElement {
             if (other.isExpanded != null)
                 return false;
         } else if (!isExpanded.equals(other.isExpanded))
+            return false;
+        if (defaultAutoTypeSequence == null) {
+            if (other.defaultAutoTypeSequence != null)
+                return false;
+        } else if (!defaultAutoTypeSequence.equals(other.defaultAutoTypeSequence))
             return false;
         if (name == null) {
             if (other.name != null)

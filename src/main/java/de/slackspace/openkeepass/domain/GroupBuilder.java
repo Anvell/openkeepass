@@ -16,6 +16,8 @@ public class GroupBuilder implements GroupContract {
 
     private boolean isExpanded;
 
+    private String defaultAutoTypeSequence;
+
     private byte[] iconData;
 
     private UUID customIconUuid;
@@ -49,6 +51,7 @@ public class GroupBuilder implements GroupContract {
         this.customIconUuid = group.getCustomIconUuid();
         this.times = group.getTimes();
         this.isExpanded = group.isExpanded();
+        this.defaultAutoTypeSequence = group.getDefaultAutoTypeSequence();
         this.groups = group.getGroups();
         this.entries = group.getEntries();
     }
@@ -80,6 +83,11 @@ public class GroupBuilder implements GroupContract {
 
     public GroupBuilder isExpanded(boolean isExpanded) {
         this.isExpanded = isExpanded;
+        return this;
+    }
+
+    public GroupBuilder defaultAutoTypeSequence(String defaultAutoTypeSequence) {
+        this.defaultAutoTypeSequence = defaultAutoTypeSequence;
         return this;
     }
 
@@ -140,6 +148,11 @@ public class GroupBuilder implements GroupContract {
     @Override
     public boolean isExpanded() {
         return isExpanded;
+    }
+
+    @Override
+    public String getDefaultAutoTypeSequence() {
+        return defaultAutoTypeSequence;
     }
 
     @Override
