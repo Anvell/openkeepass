@@ -25,7 +25,7 @@ public class Binary {
     @Attribute(name = "ID")
     private int id;
 
-    @Attribute(name = "Compressed")
+    @Attribute(name = "Compressed", required = false)
     private Boolean isCompressed;
 
     @Text
