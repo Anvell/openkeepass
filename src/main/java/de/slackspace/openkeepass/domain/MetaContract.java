@@ -15,13 +15,33 @@ public interface MetaContract {
 
     Calendar getDatabaseDescriptionChanged();
 
+    String getDefaultUserName();
+
+    Calendar getDefaultUserNameChanged();
+
     int getMaintenanceHistoryDays();
+
+    String getColor();
+
+    Calendar getMasterKeyChanged();
+
+    Integer getMasterKeyChangeRec();
+
+    Integer getMasterKeyChangeForce();
 
     UUID getRecycleBinUuid();
 
     Calendar getRecycleBinChanged();
 
     boolean getRecycleBinEnabled();
+
+    UUID getEntryTemplatesGroup();
+
+    Calendar getEntryTemplatesGroupChanged();
+
+    UUID getLastSelectedGroup();
+
+    UUID getLastTopVisibleGroup();
 
     long getHistoryMaxItems();
 

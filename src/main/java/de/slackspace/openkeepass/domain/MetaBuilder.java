@@ -19,13 +19,33 @@ public class MetaBuilder implements MetaContract {
 
     Calendar databaseDescriptionChanged;
 
+    String defaultUserName;
+
+    Calendar defaultUserNameChanged;
+
     int maintenanceHistoryDays;
+
+    String color;
+
+    Calendar masterKeyChanged;
+
+    Integer masterKeyChangeRec;
+
+    Integer masterKeyChangeForce;
 
     UUID recycleBinUuid;
 
     Calendar recycleBinChanged;
 
     boolean recycleBinEnabled;
+
+    UUID entryTemplatesGroup;
+
+    Calendar entryTemplatesGroupChanged;
+
+    UUID lastSelectedGroup;
+
+    UUID lastTopVisibleGroup;
 
     long historyMaxItems;
 
@@ -56,13 +76,23 @@ public class MetaBuilder implements MetaContract {
         this.databaseName = meta.getDatabaseName();
         this.databaseDescription = meta.getDatabaseDescription();
         this.databaseNameChanged = meta.getDatabaseNameChanged();
+        this.defaultUserName = meta.getDefaultUserName();
+        this.defaultUserNameChanged = meta.getDefaultUserNameChanged();
         this.databaseDescriptionChanged = meta.getDatabaseDescriptionChanged();
+        this.color = meta.getColor();
+        this.masterKeyChanged = meta.getMasterKeyChanged();
+        this.masterKeyChangeRec = meta.getMasterKeyChangeRec();
+        this.masterKeyChangeForce = meta.getMasterKeyChangeForce();
         this.maintenanceHistoryDays = meta.getMaintenanceHistoryDays();
         this.recycleBinUuid = meta.getRecycleBinUuid();
         this.recycleBinEnabled = meta.getRecycleBinEnabled();
         this.recycleBinChanged = meta.getRecycleBinChanged();
         this.historyMaxItems = meta.getHistoryMaxItems();
         this.historyMaxSize = meta.getHistoryMaxSize();
+        this.entryTemplatesGroup = meta.getEntryTemplatesGroup();
+        this.entryTemplatesGroupChanged = meta.getEntryTemplatesGroupChanged();
+        this.lastSelectedGroup = meta.getLastSelectedGroup();
+        this.lastTopVisibleGroup = meta.getLastTopVisibleGroup();
         this.customIcons = meta.getCustomIcons();
         this.binaries = meta.getBinaries();
     }
@@ -92,8 +122,38 @@ public class MetaBuilder implements MetaContract {
         return this;
     }
 
+    public MetaBuilder defaultUserName(String defaultUserName) {
+        this.defaultUserName = defaultUserName;
+        return this;
+    }
+
+    public MetaBuilder defaultUserNameChanged(Calendar defaultUserNameChanged) {
+        this.defaultUserNameChanged = defaultUserNameChanged;
+        return this;
+    }
+
     public MetaBuilder maintenanceHistoryDays(int maintenanceHistoryDays) {
         this.maintenanceHistoryDays = maintenanceHistoryDays;
+        return this;
+    }
+
+    public MetaBuilder color(String color) {
+        this.color = color;
+        return this;
+    }
+
+    public MetaBuilder masterKeyChanged(Calendar masterKeyChanged) {
+        this.masterKeyChanged = masterKeyChanged;
+        return this;
+    }
+
+    public MetaBuilder masterKeyChangeRec(Integer masterKeyChangeRec) {
+        this.masterKeyChangeRec = masterKeyChangeRec;
+        return this;
+    }
+
+    public MetaBuilder masterKeyChangeForce(Integer masterKeyChangeForce) {
+        this.masterKeyChangeForce = masterKeyChangeForce;
         return this;
     }
 
@@ -119,6 +179,26 @@ public class MetaBuilder implements MetaContract {
 
     public MetaBuilder historyMaxSize(long historyMaxSize) {
         this.historyMaxSize = historyMaxSize;
+        return this;
+    }
+
+    public MetaBuilder entryTemplatesGroup(UUID entryTemplatesGroup) {
+        this.entryTemplatesGroup = entryTemplatesGroup;
+        return this;
+    }
+
+    public MetaBuilder entryTemplatesGroupChanged(Calendar entryTemplatesGroupChanged) {
+        this.entryTemplatesGroupChanged = entryTemplatesGroupChanged;
+        return this;
+    }
+
+    public MetaBuilder lastSelectedGroup(UUID lastSelectedGroup) {
+        this.lastSelectedGroup = lastSelectedGroup;
+        return this;
+    }
+
+    public MetaBuilder lastTopVisibleGroup(UUID lastTopVisibleGroup) {
+        this.lastTopVisibleGroup = lastTopVisibleGroup;
         return this;
     }
 
@@ -167,8 +247,38 @@ public class MetaBuilder implements MetaContract {
     }
 
     @Override
+    public String getDefaultUserName() {
+        return defaultUserName;
+    }
+
+    @Override
+    public Calendar getDefaultUserNameChanged() {
+        return defaultUserNameChanged;
+    }
+
+    @Override
     public int getMaintenanceHistoryDays() {
         return maintenanceHistoryDays;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
+    }
+
+    @Override
+    public Calendar getMasterKeyChanged() {
+        return masterKeyChanged;
+    }
+
+    @Override
+    public Integer getMasterKeyChangeRec() {
+        return masterKeyChangeRec;
+    }
+
+    @Override
+    public Integer getMasterKeyChangeForce() {
+        return masterKeyChangeForce;
     }
 
     @Override
@@ -194,6 +304,26 @@ public class MetaBuilder implements MetaContract {
     @Override
     public long getHistoryMaxSize() {
         return historyMaxSize;
+    }
+
+    @Override
+    public UUID getEntryTemplatesGroup() {
+        return entryTemplatesGroup;
+    }
+
+    @Override
+    public Calendar getEntryTemplatesGroupChanged() {
+        return entryTemplatesGroupChanged;
+    }
+
+    @Override
+    public UUID getLastSelectedGroup() {
+        return lastSelectedGroup;
+    }
+
+    @Override
+    public UUID getLastTopVisibleGroup() {
+        return lastTopVisibleGroup;
     }
 
     @Override
