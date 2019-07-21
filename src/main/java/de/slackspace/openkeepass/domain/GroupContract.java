@@ -9,6 +9,8 @@ public interface GroupContract {
 
     String getName();
 
+    String getNotes();
+
     int getIconId();
 
     Times getTimes();
@@ -16,6 +18,12 @@ public interface GroupContract {
     boolean isExpanded();
 
     String getDefaultAutoTypeSequence();
+
+    Boolean isEnableAutoType();
+
+    Boolean isEnableSearching();
+
+    UUID getLastTopVisibleEntry();
 
     byte[] getIconData();
 

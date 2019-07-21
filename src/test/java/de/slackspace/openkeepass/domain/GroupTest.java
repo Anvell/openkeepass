@@ -32,6 +32,8 @@ public class GroupTest {
 
     @Test
     public void shouldMarshallObjectToXml() throws Exception {
+        UUID entryUuid = UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef");
+
         Times times = new TimesBuilder()
                 .creationTime(CalendarHandler.createCalendar(2016, 1, 15))
                 .expires(true)
@@ -47,7 +49,7 @@ public class GroupTest {
                 .password("MyPasswd")
                 .url("http://test.com")
                 .username("MyUser")
-                .uuid(UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef"))
+                .uuid(entryUuid)
                 .customIconUuid(UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef"))
                 .iconId(23)
                 .iconData(new byte[1])
@@ -59,18 +61,25 @@ public class GroupTest {
         Group group = new GroupBuilder(UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef"))
                 .addEntry(entryOne).times(times)
                 .name("Test")
+                .notes("Lorem ipsum")
+                .defaultAutoTypeSequence("{USERNAME}{TAB}{PASSWORD}{ENTER}")
+                .enableAutoType(true)
+                .enableSearching(false)
+                .lastTopVisibleEntry(entryUuid)
                 .build();
 
         ByteArrayOutputStream bos = new SimpleXmlParser().toXml(group);
 
         String xml = XmlStringCleaner.cleanXmlString(new String(bos.toByteArray()));
         Assert.assertEquals(
-                "<Group><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><Name>Test</Name><IconID>49</IconID><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times><IsExpanded>False</IsExpanded><Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>tag</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String></Entry></Group>",
+                "<Group><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><Name>Test</Name><Notes>Lorem ipsum</Notes><IconID>49</IconID><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times><IsExpanded>False</IsExpanded><DefaultAutoTypeSequence>{USERNAME}{TAB}{PASSWORD}{ENTER}</DefaultAutoTypeSequence><EnableAutoType>True</EnableAutoType><EnableSearching>False</EnableSearching><LastTopVisibleEntry>h9T0QaXsTOCMqYKlB50o7w==</LastTopVisibleEntry><Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>tag</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String></Entry></Group>",
                 xml);
     }
 
     @Test
     public void shouldUnmarshallXmlToObject() throws Exception {
+        UUID entryUuid = UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef");
+
         Times times = new TimesBuilder()
                 .creationTime(CalendarHandler.createCalendar(2016, 1, 15))
                 .expires(true)
@@ -86,7 +95,7 @@ public class GroupTest {
                 .password("MyPasswd")
                 .url("http://test.com")
                 .username("MyUser")
-                .uuid(UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef"))
+                .uuid(entryUuid)
                 .customIconUuid(UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef"))
                 .iconId(23)
                 .iconData(new byte[1])
@@ -98,18 +107,28 @@ public class GroupTest {
         Group group = new GroupBuilder(UUID.fromString("87d4f441-a5ec-4ce0-8ca9-82a5079d28ef"))
                 .addEntry(entryOne).times(times)
                 .name("Test")
+                .notes("Lorem ipsum")
+                .defaultAutoTypeSequence("{USERNAME}{TAB}{PASSWORD}{ENTER}")
+                .enableAutoType(true)
+                .enableSearching(false)
+                .lastTopVisibleEntry(entryUuid)
                 .build();
 
         String xml =
-                "<Group><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><Name>Test</Name><IconID>49</IconID><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times><IsExpanded>False</IsExpanded><Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>tag</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String></Entry></Group>";
+                "<Group><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><Name>Test</Name><Notes>Lorem ipsum</Notes><IconID>49</IconID><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times><IsExpanded>False</IsExpanded><DefaultAutoTypeSequence>{USERNAME}{TAB}{PASSWORD}{ENTER}</DefaultAutoTypeSequence><EnableAutoType>True</EnableAutoType><EnableSearching>False</EnableSearching><LastTopVisibleEntry>h9T0QaXsTOCMqYKlB50o7w==</LastTopVisibleEntry><Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>tag</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String></Entry></Group>";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Group groupUnmarshalled = new SimpleXmlParser().fromXml(inputStream, new NullProtectionStrategy(), Group.class);
 
         Assert.assertEquals(group.getName(), groupUnmarshalled.getName());
+        Assert.assertEquals(group.getNotes(), groupUnmarshalled.getNotes());
         Assert.assertEquals(group.getCustomIconUuid(), groupUnmarshalled.getCustomIconUuid());
         Assert.assertEquals(group.getIconId(), groupUnmarshalled.getIconId());
         Assert.assertEquals(group.getUuid(), groupUnmarshalled.getUuid());
         Assert.assertEquals(group.getEntries().get(0).getUuid(), groupUnmarshalled.getEntries().get(0).getUuid());
+        Assert.assertEquals(group.getDefaultAutoTypeSequence(), groupUnmarshalled.getDefaultAutoTypeSequence());
+        Assert.assertEquals(group.isEnableAutoType(), groupUnmarshalled.isEnableAutoType());
+        Assert.assertEquals(group.isEnableSearching(), groupUnmarshalled.isEnableSearching());
+        Assert.assertEquals(group.getLastTopVisibleEntry(), groupUnmarshalled.getLastTopVisibleEntry());
     }
 
 }

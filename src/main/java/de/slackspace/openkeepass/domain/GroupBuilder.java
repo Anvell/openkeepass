@@ -10,6 +10,8 @@ public class GroupBuilder implements GroupContract {
 
     private String name;
 
+    private String notes;
+
     private int iconId = 49;
 
     private Times times;
@@ -17,6 +19,12 @@ public class GroupBuilder implements GroupContract {
     private boolean isExpanded;
 
     private String defaultAutoTypeSequence;
+
+    private Boolean enableAutoType;
+
+    private Boolean enableSearching;
+
+    private UUID lastTopVisibleEntry;
 
     private byte[] iconData;
 
@@ -46,18 +54,27 @@ public class GroupBuilder implements GroupContract {
 
         this.uuid = group.getUuid();
         this.name = group.getName();
+        this.notes = group.getNotes();
         this.iconId = group.getIconId();
         this.iconData = group.getIconData();
         this.customIconUuid = group.getCustomIconUuid();
         this.times = group.getTimes();
         this.isExpanded = group.isExpanded();
         this.defaultAutoTypeSequence = group.getDefaultAutoTypeSequence();
+        this.enableAutoType = group.isEnableAutoType();
+        this.enableSearching = group.isEnableSearching();
+        this.lastTopVisibleEntry = group.getLastTopVisibleEntry();
         this.groups = group.getGroups();
         this.entries = group.getEntries();
     }
 
     public GroupBuilder name(String name) {
         this.name = name;
+        return this;
+    }
+
+    public GroupBuilder notes(String notes) {
+        this.notes = notes;
         return this;
     }
 
@@ -88,6 +105,21 @@ public class GroupBuilder implements GroupContract {
 
     public GroupBuilder defaultAutoTypeSequence(String defaultAutoTypeSequence) {
         this.defaultAutoTypeSequence = defaultAutoTypeSequence;
+        return this;
+    }
+
+    public GroupBuilder enableAutoType(Boolean enableAutoType) {
+        this.enableAutoType = enableAutoType;
+        return this;
+    }
+
+    public GroupBuilder enableSearching(Boolean enableSearching) {
+        this.enableSearching = enableSearching;
+        return this;
+    }
+
+    public GroupBuilder lastTopVisibleEntry(UUID lastTopVisibleEntry) {
+        this.lastTopVisibleEntry = lastTopVisibleEntry;
         return this;
     }
 
@@ -136,6 +168,11 @@ public class GroupBuilder implements GroupContract {
     }
 
     @Override
+    public String getNotes() {
+        return notes;
+    }
+
+    @Override
     public int getIconId() {
         return iconId;
     }
@@ -153,6 +190,21 @@ public class GroupBuilder implements GroupContract {
     @Override
     public String getDefaultAutoTypeSequence() {
         return defaultAutoTypeSequence;
+    }
+
+    @Override
+    public Boolean isEnableAutoType() {
+        return enableAutoType;
+    }
+
+    @Override
+    public Boolean isEnableSearching() {
+        return enableSearching;
+    }
+
+    @Override
+    public UUID getLastTopVisibleEntry() {
+        return lastTopVisibleEntry;
     }
 
     @Override

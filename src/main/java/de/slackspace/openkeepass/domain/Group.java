@@ -23,6 +23,9 @@ public class Group implements KeePassFileElement {
     @Element(name = "Name", required = false)
     private String name;
 
+    @Element(name = "Notes", required = false)
+    private String notes;
+
     @Element(name = "IconID", required = false)
     private int iconId = 49;
 
@@ -39,6 +42,15 @@ public class Group implements KeePassFileElement {
 
     @Element(name = "DefaultAutoTypeSequence", required = false)
     private String defaultAutoTypeSequence;
+
+    @Element(name = "EnableAutoType", required = false)
+    private Boolean enableAutoType;
+
+    @Element(name = "EnableSearching", required = false)
+    private Boolean enableSearching;
+
+    @Element(name = "LastTopVisibleEntry", required = false)
+    private UUID lastTopVisibleEntry;
 
     @ElementList(name = "Entry", inline = true, required = false)
     private List<Entry> entries = new ArrayList<Entry>();
@@ -61,6 +73,10 @@ public class Group implements KeePassFileElement {
         uuid = groupContract.getUuid();
         iconData = groupContract.getIconData();
         customIconUUID = groupContract.getCustomIconUuid();
+        notes = groupContract.getNotes();
+        enableAutoType = groupContract.isEnableAutoType();
+        enableSearching = groupContract.isEnableSearching();
+        lastTopVisibleEntry = groupContract.getLastTopVisibleEntry();
     }
 
     /**
@@ -166,6 +182,22 @@ public class Group implements KeePassFileElement {
         return isExpanded.booleanValue();
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public Boolean isEnableAutoType() {
+        return enableAutoType;
+    }
+
+    public Boolean isEnableSearching() {
+        return enableSearching;
+    }
+
+    public UUID getLastTopVisibleEntry() {
+        return lastTopVisibleEntry;
+    }
+
     /**
      * Retrieves value which is used as auto type sequence.
      *
@@ -188,6 +220,10 @@ public class Group implements KeePassFileElement {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((times == null) ? 0 : times.hashCode());
         result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+        result = prime * result + ((notes == null) ? 0 : notes.hashCode());
+        result = prime * result + ((enableAutoType == null) ? 0 : enableAutoType.hashCode());
+        result = prime * result + ((enableSearching == null) ? 0 : enableSearching.hashCode());
+        result = prime * result + ((lastTopVisibleEntry == null) ? 0 : lastTopVisibleEntry.hashCode());
         return result;
     }
 
@@ -241,6 +277,26 @@ public class Group implements KeePassFileElement {
             if (other.uuid != null)
                 return false;
         } else if (!uuid.equals(other.uuid))
+            return false;
+        if (notes == null) {
+            if (other.notes != null)
+                return false;
+        } else if (!notes.equals(other.notes))
+            return false;
+        if (enableAutoType == null) {
+            if (other.enableAutoType != null)
+                return false;
+        } else if (!enableAutoType.equals(other.enableAutoType))
+            return false;
+        if (enableSearching == null) {
+            if (other.enableSearching != null)
+                return false;
+        } else if (!enableSearching.equals(other.enableSearching))
+            return false;
+        if (lastTopVisibleEntry == null) {
+            if (other.lastTopVisibleEntry != null)
+                return false;
+        } else if (!lastTopVisibleEntry.equals(other.lastTopVisibleEntry))
             return false;
         return true;
     }
