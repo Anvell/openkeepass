@@ -16,7 +16,7 @@ public class AutoTypeBuilder implements AutoTypeContract {
         association = autoType.getAssociation();
     }
 
-    public AutoTypeBuilder isEnabled(Boolean isEnabled) {
+    public AutoTypeBuilder enabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
         return this;
     }

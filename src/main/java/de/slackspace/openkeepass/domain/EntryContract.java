@@ -35,5 +35,9 @@ public interface EntryContract {
 
     String getBackgroundColor();
 
+    String getOverrideUrl();
+
+    AutoType getAutoType();
+
     List<Attachment> getAttachmentList();
 }

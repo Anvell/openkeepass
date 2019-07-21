@@ -18,7 +18,7 @@ import de.slackspace.openkeepass.parser.TagParser;
  */
 @Root(strict = false, name = "Entry")
 @Order(elements = {"UUID", "IconID", "CustomIconUUID", "ForegroundColor",
-        "BackgroundColor", "Tags", "String", "Times", "History"})
+        "BackgroundColor", "Tags", "String", "Times", "History", "OverrideURL", "AutoType"})
 public class Entry implements KeePassFileElement {
 
     private static final String USER_NAME = "UserName";
@@ -69,6 +69,12 @@ public class Entry implements KeePassFileElement {
     @Element(name = "BackgroundColor", required = false)
     private String backgroundColor;
 
+    @Element(name = "OverrideURL", required = false)
+    private String overrideUrl;
+
+    @Element(name = "AutoType", required = false)
+    private AutoType autoType;
+
     @ElementList(name = "Binary", inline = true, required = false)
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
@@ -88,6 +94,8 @@ public class Entry implements KeePassFileElement {
         this.tags = tagParser.toTagString(entryContract.getTags());
         this.foregroundColor = entryContract.getForegroundColor();
         this.backgroundColor = entryContract.getBackgroundColor();
+        this.overrideUrl = entryContract.getOverrideUrl();
+        this.autoType = entryContract.getAutoType();
 
         setValue(false, NOTES, entryContract.getNotes());
         setValue(true, PASSWORD, entryContract.getPassword());
@@ -180,6 +188,14 @@ public class Entry implements KeePassFileElement {
 
     public Times getTimes() {
         return times;
+    }
+
+    public String getOverrideUrl() {
+        return overrideUrl;
+    }
+
+    public AutoType getAutoType() {
+        return autoType;
     }
 
     public List<Attachment> getAttachments() {
@@ -280,6 +296,8 @@ public class Entry implements KeePassFileElement {
         result = prime * result + ((properties == null) ? 0 : properties.hashCode());
         result = prime * result + ((times == null) ? 0 : times.hashCode());
         result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+        result = prime * result + ((overrideUrl == null) ? 0 : overrideUrl.hashCode());
+        result = prime * result + ((autoType == null) ? 0 : autoType.hashCode());
         return result;
     }
 
@@ -336,6 +354,22 @@ public class Entry implements KeePassFileElement {
             }
         }
         else if (!uuid.equals(other.uuid)) {
+            return false;
+        }
+        if (overrideUrl == null) {
+            if (other.overrideUrl != null) {
+                return false;
+            }
+        }
+        else if (!overrideUrl.equals(other.overrideUrl)) {
+            return false;
+        }
+        if (autoType == null) {
+            if (other.autoType != null) {
+                return false;
+            }
+        }
+        else if (!autoType.equals(other.autoType)) {
             return false;
         }
         return true;

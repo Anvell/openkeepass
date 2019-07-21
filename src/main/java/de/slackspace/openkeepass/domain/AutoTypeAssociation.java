@@ -28,24 +28,19 @@ public class AutoTypeAssociation {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AutoTypeAssociation)) return false;
 
         AutoTypeAssociation that = (AutoTypeAssociation) o;
 
-        if (windowTitle != null ? !windowTitle.equals(that.windowTitle) : that.windowTitle != null) {
+        if (windowTitle != null ? !windowTitle.equals(that.windowTitle) : that.windowTitle != null)
             return false;
-        }
         return keystrokeSequence != null ? keystrokeSequence.equals(that.keystrokeSequence) : that.keystrokeSequence == null;
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = windowTitle != null ? windowTitle.hashCode() : 0;
         result = 31 * result + (keystrokeSequence != null ? keystrokeSequence.hashCode() : 0);
         return result;

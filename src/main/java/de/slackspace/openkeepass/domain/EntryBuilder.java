@@ -40,6 +40,10 @@ public class EntryBuilder implements EntryContract {
 
     private String backgroundColor;
 
+    private String overrideUrl;
+
+    private AutoType autoType;
+
     private List<Property> customPropertyList = new ArrayList<Property>();
 
     private List<Attachment> attachmentList = new ArrayList<Attachment>();
@@ -95,6 +99,8 @@ public class EntryBuilder implements EntryContract {
         this.tags = entry.getTags();
         this.foregroundColor = entry.getForegroundColor();
         this.backgroundColor = entry.getBackgroundColor();
+        this.overrideUrl = entry.getOverrideUrl();
+        this.autoType = entry.getAutoType();
         this.attachmentList.addAll(entry.getAttachments());
     }
 
@@ -175,6 +181,16 @@ public class EntryBuilder implements EntryContract {
 
     public EntryBuilder backgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
+        return this;
+    }
+
+    public EntryBuilder overrideUrl(String overrideUrl) {
+        this.overrideUrl = overrideUrl;
+        return this;
+    }
+
+    public EntryBuilder autoType(AutoType autoType) {
+        this.autoType = autoType;
         return this;
     }
 
@@ -284,6 +300,16 @@ public class EntryBuilder implements EntryContract {
     @Override
     public String getBackgroundColor() {
         return backgroundColor;
+    }
+
+    @Override
+    public String getOverrideUrl() {
+        return overrideUrl;
+    }
+
+    @Override
+    public AutoType getAutoType() {
+        return autoType;
     }
 
     @Override

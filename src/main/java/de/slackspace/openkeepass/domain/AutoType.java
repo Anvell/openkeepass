@@ -38,9 +38,9 @@ public class AutoType {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof AutoType)) return false;
 
         AutoType autoType = (AutoType) o;
 
@@ -51,7 +51,7 @@ public class AutoType {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = isEnabled != null ? isEnabled.hashCode() : 0;
         result = 31 * result + dataTransferObfuscation;
         result = 31 * result + (association != null ? association.hashCode() : 0);

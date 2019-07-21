@@ -39,6 +39,17 @@ public class EntryTest {
                 .usageCount(23)
                 .build();
 
+        AutoType autoType = new AutoTypeBuilder()
+                .enabled(true)
+                .dataTransferObfuscation(0)
+                .association(
+                    new AutoTypeAssociationBuilder()
+                    .windowTitle("Window")
+                    .keystrokeSequence("{USERNAME}{TAB}{PASSWORD}{TAB}{ENTER}")
+                    .build()
+                )
+                .build();
+
         Entry entry = new EntryBuilder("SomeTitle")
                 .notes("MyNote")
                 .password("MyPasswd")
@@ -53,13 +64,15 @@ public class EntryTest {
                 .addTag("two")
                 .foregroundColor("#FFFFFF")
                 .backgroundColor("#000000")
+                .overrideUrl("https://login.test.com")
+                .autoType(autoType)
                 .build();
 
         ByteArrayOutputStream bos = new SimpleXmlParser().toXml(entry);
 
         String xml = XmlStringCleaner.cleanXmlString(new String(bos.toByteArray()));
         Assert.assertEquals(
-                "<Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>one;two</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times></Entry>",
+                "<Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>one;two</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times><OverrideURL>https://login.test.com</OverrideURL><AutoType><Enabled>True</Enabled><DataTransferObfuscation>0</DataTransferObfuscation><Association><Window>Window</Window><KeystrokeSequence>{USERNAME}{TAB}{PASSWORD}{TAB}{ENTER}</KeystrokeSequence></Association></AutoType></Entry>",
                 xml);
     }
 
@@ -75,6 +88,17 @@ public class EntryTest {
                 .usageCount(23)
                 .build();
 
+        AutoType autoType = new AutoTypeBuilder()
+            .enabled(true)
+            .dataTransferObfuscation(0)
+            .association(
+                new AutoTypeAssociationBuilder()
+                    .windowTitle("Window")
+                    .keystrokeSequence("{USERNAME}{TAB}{PASSWORD}{TAB}{ENTER}")
+                    .build()
+            )
+            .build();
+
         Entry entry = new EntryBuilder("SomeTitle")
                 .notes("MyNote")
                 .password("MyPasswd")
@@ -89,10 +113,12 @@ public class EntryTest {
                 .addTag("two")
                 .foregroundColor("#FFFFFF")
                 .backgroundColor("#000000")
+                .overrideUrl("https://login.test.com")
+                .autoType(autoType)
                 .build();
 
         String xml =
-                "<Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>one;two</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times></Entry>";
+                "<Entry><UUID>h9T0QaXsTOCMqYKlB50o7w==</UUID><IconID>23</IconID><CustomIconUUID>h9T0QaXsTOCMqYKlB50o7w==</CustomIconUUID><ForegroundColor>#FFFFFF</ForegroundColor><BackgroundColor>#000000</BackgroundColor><Tags>one;two</Tags><String><Key>Notes</Key><Value Protected='False'>MyNote</Value></String><String><Key>Password</Key><Value Protected='True'>MyPasswd</Value></String><String><Key>Title</Key><Value Protected='False'>SomeTitle</Value></String><String><Key>UserName</Key><Value Protected='False'>MyUser</Value></String><String><Key>URL</Key><Value Protected='False'>http://test.com</Value></String><Times><LastModificationTime>2016-01-18T00:00:00</LastModificationTime><CreationTime>2016-01-15T00:00:00</CreationTime><LastAccessTime>2016-01-17T00:00:00</LastAccessTime><ExpiryTime>2016-01-16T00:00:00</ExpiryTime><Expires>True</Expires><UsageCount>23</UsageCount><LocationChanged>2016-01-19T00:00:00</LocationChanged></Times><OverrideURL>https://login.test.com</OverrideURL><AutoType><Enabled>True</Enabled><DataTransferObfuscation>0</DataTransferObfuscation><Association><Window>Window</Window><KeystrokeSequence>{USERNAME}{TAB}{PASSWORD}{TAB}{ENTER}</KeystrokeSequence></Association></AutoType></Entry>";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Entry entryUnmarshalled = new SimpleXmlParser().fromXml(inputStream, new NullProtectionStrategy(), Entry.class);
 
@@ -109,5 +135,7 @@ public class EntryTest {
         Assert.assertEquals(entry.getTags().get(1), entryUnmarshalled.getTags().get(1));
         Assert.assertEquals(entry.getForegroundColor(), entryUnmarshalled.getForegroundColor());
         Assert.assertEquals(entry.getBackgroundColor(), entryUnmarshalled.getBackgroundColor());
+        Assert.assertEquals(entry.getOverrideUrl(), entryUnmarshalled.getOverrideUrl());
+        Assert.assertEquals(entry.getAutoType(), entryUnmarshalled.getAutoType());
     }
 }
