@@ -222,7 +222,7 @@ public class EntryBuilder implements EntryContract {
             history = new History();
         }
 
-        Entry entryWithoutHistory = new EntryBuilder(originalEntry).history(new History()).build();
+        Entry entryWithoutHistory = new EntryBuilder(originalEntry).history(null).build();
         history.getHistoricEntries().add(entryWithoutHistory);
         return build();
     }
