@@ -1,10 +1,14 @@
 package de.slackspace.openkeepass.domain;
 
+import java.util.List;
+
 public interface AutoTypeContract {
 
     Boolean isEnabled();
 
     int getDataTransferObfuscation();
 
-    AutoTypeAssociation getAssociation();
+    String getDefaultSequence();
+
+    List<AutoTypeAssociation> getAssociations();
 }

@@ -42,7 +42,7 @@ public class EntryTest {
         AutoType autoType = new AutoTypeBuilder()
                 .enabled(true)
                 .dataTransferObfuscation(0)
-                .association(
+                .addAssociation(
                     new AutoTypeAssociationBuilder()
                     .windowTitle("Window")
                     .keystrokeSequence("{USERNAME}{TAB}{PASSWORD}{TAB}{ENTER}")
@@ -91,7 +91,7 @@ public class EntryTest {
         AutoType autoType = new AutoTypeBuilder()
             .enabled(true)
             .dataTransferObfuscation(0)
-            .association(
+            .addAssociation(
                 new AutoTypeAssociationBuilder()
                     .windowTitle("Window")
                     .keystrokeSequence("{USERNAME}{TAB}{PASSWORD}{TAB}{ENTER}")

@@ -1,19 +1,26 @@
 package de.slackspace.openkeepass.domain;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class AutoTypeBuilder implements AutoTypeContract {
 
     private Boolean isEnabled;
 
     private int dataTransferObfuscation;
 
-    private AutoTypeAssociation association;
+    private String defaultSequence;
+
+    private List<AutoTypeAssociation> associations = new ArrayList<AutoTypeAssociation>();
 
     public AutoTypeBuilder() {}
 
     public AutoTypeBuilder(AutoType autoType) {
         isEnabled = autoType.isEnabled();
         dataTransferObfuscation = autoType.getDataTransferObfuscation();
-        association = autoType.getAssociation();
+        defaultSequence = autoType.getDefaultSequence();
+        associations = autoType.getAssociations();
     }
 
     public AutoTypeBuilder enabled(Boolean isEnabled) {
@@ -26,8 +33,13 @@ public class AutoTypeBuilder implements AutoTypeContract {
         return this;
     }
 
-    public AutoTypeBuilder association(AutoTypeAssociation association) {
-        this.association = association;
+    public AutoTypeBuilder defaultSequence(String defaultSequence) {
+        this.defaultSequence = defaultSequence;
+        return this;
+    }
+
+    public AutoTypeBuilder addAssociation(AutoTypeAssociation... associations) {
+        this.associations.addAll(Arrays.asList(associations));
         return this;
     }
 
@@ -46,7 +58,12 @@ public class AutoTypeBuilder implements AutoTypeContract {
     }
 
     @Override
-    public AutoTypeAssociation getAssociation() {
-        return association;
+    public String getDefaultSequence() {
+        return defaultSequence;
+    }
+
+    @Override
+    public List<AutoTypeAssociation> getAssociations() {
+        return associations;
     }
 }
