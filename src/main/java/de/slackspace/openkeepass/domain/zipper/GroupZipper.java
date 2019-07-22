@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import de.slackspace.openkeepass.domain.DocumentRoot;
+import de.slackspace.openkeepass.domain.DocumentRootBuilder;
 import de.slackspace.openkeepass.domain.Entry;
 import de.slackspace.openkeepass.domain.EntryBuilder;
 import de.slackspace.openkeepass.domain.Group;
@@ -42,7 +44,7 @@ public class GroupZipper {
      */
     public GroupZipper(KeePassFile keePassFile) {
         this.meta = keePassFile.getMeta();
-        this.node = keePassFile.getRoot().getGroups().get(0);
+        this.node = keePassFile.getRoot().getRootGroup();
     }
 
     private GroupZipper(GroupZipper parent, Group group, int index) {
@@ -228,7 +230,12 @@ public class GroupZipper {
     public KeePassFile close() {
         Group rootNode = getRoot();
 
-        return new KeePassFileBuilder(meta).addTopGroups(rootNode).build();
+        return new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                .rootGroup(rootNode)
+                .build()
+            ).build();
     }
 
     /**

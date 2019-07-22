@@ -21,7 +21,7 @@ public class KeePassFile implements KeePassFileElement {
     private Meta meta;
 
     @Element(name = "Root")
-    private Group root;
+    private DocumentRoot root;
 
     KeePassFile() {
     }
@@ -47,7 +47,7 @@ public class KeePassFile implements KeePassFileElement {
      * @return the root group
      * @see Group
      */
-    public Group getRoot() {
+    public DocumentRoot getRoot() {
         return root;
     }
 
@@ -58,8 +58,8 @@ public class KeePassFile implements KeePassFileElement {
      * @see Group
      */
     public List<Group> getTopGroups() {
-        if (root != null && root.getGroups() != null && root.getGroups().size() == 1) {
-            return root.getGroups().get(0).getGroups();
+        if (root != null && root.getRootGroup() != null) {
+            return root.getRootGroup().getGroups();
         }
         return new ArrayList<Group>();
     }
@@ -71,8 +71,8 @@ public class KeePassFile implements KeePassFileElement {
      * @see Entry
      */
     public List<Entry> getTopEntries() {
-        if (root != null && root.getGroups() != null && root.getGroups().size() == 1) {
-            return root.getGroups().get(0).getEntries();
+        if (root != null && root.getRootGroup() != null) {
+            return root.getRootGroup().getEntries();
         }
         return new ArrayList<Entry>();
     }
@@ -116,8 +116,8 @@ public class KeePassFile implements KeePassFileElement {
     public List<Entry> getEntriesByTitle(final String title, final boolean matchExactly) {
         List<Entry> allEntries = new ArrayList<Entry>();
 
-        if (root != null) {
-            getEntries(root, allEntries);
+        if (root != null && root.getRootGroup() != null) {
+            getEntries(root.getRootGroup(), allEntries);
         }
 
         return ListFilter.filter(allEntries, new Filter<Entry>() {
@@ -158,8 +158,9 @@ public class KeePassFile implements KeePassFileElement {
     public List<Group> getGroupsByName(final String name, final boolean matchExactly) {
         List<Group> allGroups = new ArrayList<Group>();
 
-        if (root != null) {
-            getGroups(root, allGroups);
+        if (root != null && root.getRootGroup() != null) {
+            allGroups.add(root.getRootGroup());
+            getGroups(root.getRootGroup(), allGroups);
         }
 
         return ListFilter.filter(allGroups, new Filter<Group>() {
@@ -191,8 +192,8 @@ public class KeePassFile implements KeePassFileElement {
     public List<Entry> getEntries() {
         List<Entry> allEntries = new ArrayList<Entry>();
 
-        if (root != null) {
-            getEntries(root, allEntries);
+        if (root != null && root.getRootGroup() != null) {
+            getEntries(root.getRootGroup(), allEntries);
         }
 
         return allEntries;
@@ -207,8 +208,9 @@ public class KeePassFile implements KeePassFileElement {
     public List<Group> getGroups() {
         List<Group> allGroups = new ArrayList<Group>();
 
-        if (root != null) {
-            getGroups(root, allGroups);
+        if (root != null && root.getRootGroup() != null) {
+            allGroups.add(root.getRootGroup());
+            getGroups(root.getRootGroup(), allGroups);
         }
 
         return allGroups;
@@ -244,8 +246,6 @@ public class KeePassFile implements KeePassFileElement {
                 getEntries(group, entries);
             }
         }
-
-        return;
     }
 
     private void getGroups(Group parentGroup, List<Group> groups) {
@@ -257,8 +257,6 @@ public class KeePassFile implements KeePassFileElement {
                 getGroups(group, groups);
             }
         }
-
-        return;
     }
 
     /**

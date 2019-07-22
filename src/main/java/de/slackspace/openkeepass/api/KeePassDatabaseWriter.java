@@ -107,7 +107,7 @@ public class KeePassDatabaseWriter {
             return false;
         }
 
-        if (keePassFile.getRoot() == null || keePassFile.getRoot().getGroups().isEmpty()) {
+        if (keePassFile.getRoot() == null || keePassFile.getRoot().getRootGroup() == null) {
             return false;
         }
 

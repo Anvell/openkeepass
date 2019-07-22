@@ -4,5 +4,5 @@ public interface KeePassFileContract {
 
     Meta getMeta();
 
-    Group getRoot();
+    DocumentRoot getRoot();
 }
