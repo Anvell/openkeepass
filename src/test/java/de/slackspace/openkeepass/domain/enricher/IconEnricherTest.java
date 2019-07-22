@@ -32,15 +32,20 @@ public class IconEnricherTest {
 
         Group groupA = new GroupBuilder("A").customIconUuid(iconUuid).addEntry(entry1).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder(meta).addTopGroups(groupA).build();
+        KeePassFile keePassFile = new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(groupA)
+                    .build()
+            ).build();
         IconEnricher enricher = new IconEnricher();
         KeePassFile enrichedKeePassFile = enricher.enrichNodesWithIconData(keePassFile);
 
-        Assert.assertEquals("group UUID doesn't match", iconUuid, enrichedKeePassFile.getRoot().getGroups().get(0).getCustomIconUuid());
-        Assert.assertArrayEquals("group icon data doesn't match", transparentPng, enrichedKeePassFile.getRoot().getGroups().get(0).getIconData());
+        Assert.assertEquals("group UUID doesn't match", iconUuid, enrichedKeePassFile.getRoot().getRootGroup().getCustomIconUuid());
+        Assert.assertArrayEquals("group icon data doesn't match", transparentPng, enrichedKeePassFile.getRoot().getRootGroup().getIconData());
 
-        Assert.assertEquals("entry UUID doesn't match", iconUuid, enrichedKeePassFile.getRoot().getGroups().get(0).getEntries().get(0).getCustomIconUuid());
+        Assert.assertEquals("entry UUID doesn't match", iconUuid, enrichedKeePassFile.getRoot().getRootGroup().getEntries().get(0).getCustomIconUuid());
         Assert.assertArrayEquals("entry icon data doesn't match", transparentPng,
-                enrichedKeePassFile.getRoot().getGroups().get(0).getEntries().get(0).getIconData());
+                enrichedKeePassFile.getRoot().getRootGroup().getEntries().get(0).getIconData());
     }
 }

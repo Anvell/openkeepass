@@ -13,6 +13,7 @@ import de.slackspace.openkeepass.domain.Binaries;
 import de.slackspace.openkeepass.domain.BinariesBuilder;
 import de.slackspace.openkeepass.domain.Binary;
 import de.slackspace.openkeepass.domain.BinaryBuilder;
+import de.slackspace.openkeepass.domain.DocumentRootBuilder;
 import de.slackspace.openkeepass.domain.Entry;
 import de.slackspace.openkeepass.domain.EntryBuilder;
 import de.slackspace.openkeepass.domain.Group;
@@ -44,12 +45,18 @@ public class BinaryEnricherTest {
 
         Group groupA = new GroupBuilder("A").addEntry(entry1).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder(meta).addTopGroups(groupA).build();
+        KeePassFile keePassFile = new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(groupA)
+                    .build()
+            ).build();
+
         BinaryEnricher enricher = new BinaryEnricher();
         KeePassFile enrichedKeePassFile = enricher.enrichNodesWithBinaryData(keePassFile);
 
         Attachment attachment =
-                enrichedKeePassFile.getRoot().getGroups().get(0).getEntries().get(0).getAttachments().get(0);
+                enrichedKeePassFile.getRoot().getRootGroup().getEntries().get(0).getAttachments().get(0);
 
         assertThat(attachment.getRef(), is(attachmentId));
         assertThat(attachment.getKey(), is(attachmentKey));

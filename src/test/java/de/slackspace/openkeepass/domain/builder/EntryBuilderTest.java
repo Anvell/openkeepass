@@ -101,7 +101,7 @@ public class EntryBuilderTest {
         Entry entryThree = new EntryBuilder(entryTwo).title("v3").buildWithHistory();
 
         for (Entry historicEntry : entryThree.getHistory().getHistoricEntries()) {
-            Assert.assertEquals(0, historicEntry.getHistory().getHistoricEntries().size());
+            Assert.assertNull(historicEntry.getHistory());
         }
     }
 

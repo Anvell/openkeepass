@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import de.slackspace.openkeepass.domain.DocumentRootBuilder;
 import de.slackspace.openkeepass.domain.Entry;
 import de.slackspace.openkeepass.domain.EntryBuilder;
 import de.slackspace.openkeepass.domain.Group;
@@ -50,7 +51,12 @@ public class GroupZipperTest {
                         .addGroup(new GroupBuilder("Stores").build()).build())
                 .addGroup(new GroupBuilder("Music").build()).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB").addTopGroups(root).build();
+        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB")
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(root)
+                    .build()
+            ).build();
         return keePassFile;
     }
 
@@ -152,7 +158,12 @@ public class GroupZipperTest {
                         .addGroup(new GroupBuilder("R").build()).addGroup(new GroupBuilder("S").addGroup(new GroupBuilder("T").build()).build()).build())
                 .build();
 
-        KeePassFile db = new KeePassFileBuilder("deepTest").addTopGroups(rootA).build();
+        KeePassFile db = new KeePassFileBuilder("deepTest")
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(rootA)
+                    .build()
+            ).build();
         GroupZipper zipper = new GroupZipper(db);
         Iterator<Group> iterator = zipper.iterator();
         StringBuilder sb = new StringBuilder();
@@ -197,7 +208,12 @@ public class GroupZipperTest {
         Group root = new GroupBuilder().addGroup(new GroupBuilder("A").build()).addGroup(new GroupBuilder("B").build()).addGroup(new GroupBuilder("C").build())
                 .build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB").addTopGroups(root).build();
+        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB")
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(root)
+                    .build()
+            ).build();
 
         return keePassFile;
     }

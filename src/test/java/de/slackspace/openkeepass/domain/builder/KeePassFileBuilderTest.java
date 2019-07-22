@@ -3,6 +3,7 @@ package de.slackspace.openkeepass.domain.builder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import de.slackspace.openkeepass.domain.DocumentRootBuilder;
 import de.slackspace.openkeepass.domain.EntryBuilder;
 import de.slackspace.openkeepass.domain.Group;
 import de.slackspace.openkeepass.domain.GroupBuilder;
@@ -18,7 +19,7 @@ public class KeePassFileBuilderTest {
         Assert.assertEquals("testDB", keePassFile.getMeta().getDatabaseName());
         Assert.assertEquals("KeePass", keePassFile.getMeta().getGenerator());
         Assert.assertNotNull(keePassFile.getRoot());
-        Assert.assertEquals(1, keePassFile.getRoot().getGroups().size());
+        Assert.assertNotNull(keePassFile.getRoot().getRootGroup());
     }
 
     @Test
@@ -35,7 +36,13 @@ public class KeePassFileBuilderTest {
                         new GroupBuilder("Internet").addGroup(new GroupBuilder("Shopping").addEntry(new EntryBuilder("Second entry").build()).build()).build())
                 .build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB").addTopGroups(root).build();
+        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB")
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(root)
+                    .build()
+            )
+            .build();
 
         Assert.assertEquals("Banking", keePassFile.getTopGroups().get(0).getName());
         Assert.assertEquals("Internet", keePassFile.getTopGroups().get(1).getName());

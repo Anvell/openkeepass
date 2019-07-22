@@ -32,6 +32,7 @@ import de.slackspace.openkeepass.domain.CustomIcon;
 import de.slackspace.openkeepass.domain.CustomIconBuilder;
 import de.slackspace.openkeepass.domain.CustomIcons;
 import de.slackspace.openkeepass.domain.CustomIconsBuilder;
+import de.slackspace.openkeepass.domain.DocumentRootBuilder;
 import de.slackspace.openkeepass.domain.Entry;
 import de.slackspace.openkeepass.domain.EntryBuilder;
 import de.slackspace.openkeepass.domain.Group;
@@ -96,7 +97,12 @@ public class KeepassDatabaseWriterTest {
         Times times = new TimesBuilder().usageCount(5).creationTime(creationDate).build();
         Entry entryOne = new EntryBuilder("First entry").username("Carl").password("Carls secret").times(times).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder("testDB").addTopEntries(entryOne).build();
+        KeePassFile keePassFile = new KeePassFileBuilder("testDB")
+            .withRoot(
+                new DocumentRootBuilder()
+                    .addTopEntries(entryOne)
+                    .build()
+            ).build();
 
         String dbFilename = tempFolder.newFile("writeNewDatabase.kdbx").getPath();
         KeePassDatabase.write(keePassFile, "abc", new FileOutputStream(dbFilename));
@@ -126,7 +132,12 @@ public class KeepassDatabaseWriterTest {
                                 .build())
                 .build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB").addTopGroups(root).build();
+        KeePassFile keePassFile = new KeePassFileBuilder("writeTreeDB")
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(root)
+                    .build()
+            ).build();
 
         String dbFilename = tempFolder.newFile("writeTreeDB.kdbx").getPath();
         KeePassDatabase.write(keePassFile, "abc", new FileOutputStream(dbFilename));
@@ -203,7 +214,12 @@ public class KeepassDatabaseWriterTest {
         Entry entry1 = new EntryBuilder("1").customIconUuid(iconUuid).build();
         Group groupA = new GroupBuilder("A").customIconUuid(iconUuid).addEntry(entry1).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder(meta).addTopGroups(groupA).build();
+        KeePassFile keePassFile = new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(groupA)
+                    .build()
+            ).build();
 
         // write
         String dbFilename = tempFolder.newFile("databaseWithCustomIcon.kdbx").getPath();
@@ -233,7 +249,12 @@ public class KeepassDatabaseWriterTest {
         Entry entry = new EntryBuilder("1").addAttachment(attachmentKey, attachmentId).build();
         Group group = new GroupBuilder("A").addEntry(entry).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder(meta).addTopGroups(group).build();
+        KeePassFile keePassFile = new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(group)
+                    .build()
+            ).build();
 
         // write
         String dbFilename = tempFolder.newFile("databaseWithAttachment.kdbx").getPath();
@@ -291,7 +312,12 @@ public class KeepassDatabaseWriterTest {
         Entry entry1 = new EntryBuilder("1").addTag("x").addTag("y").build();
         Group groupA = new GroupBuilder("A").addEntry(entry1).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder(meta).addTopGroups(groupA).build();
+        KeePassFile keePassFile = new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(groupA)
+                    .build()
+            ).build();
 
         // write
         String dbFilename = tempFolder.newFile("dbWithTags.kdbx").getPath();
@@ -312,7 +338,12 @@ public class KeepassDatabaseWriterTest {
         Entry entry1 = new EntryBuilder("1").foregroundColor("#FFFFFF").backgroundColor("#000000").build();
         Group groupA = new GroupBuilder("A").addEntry(entry1).build();
 
-        KeePassFile keePassFile = new KeePassFileBuilder(meta).addTopGroups(groupA).build();
+        KeePassFile keePassFile = new KeePassFileBuilder(meta)
+            .withRoot(
+                new DocumentRootBuilder()
+                    .rootGroup(groupA)
+                    .build()
+            ).build();
 
         // write
         String dbFilename = tempFolder.newFile("dbWithColors.kdbx").getPath();
