@@ -6,12 +6,20 @@ public class BooleanSimpleXmlAdapter implements Transform<Boolean> {
 
     @Override
     public Boolean read(String value) throws Exception {
-        return "true".equalsIgnoreCase(value);
+        if (value.toLowerCase().equals("true")) {
+            return true;
+        } else if (value.toLowerCase().equals("false")) {
+            return false;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public String write(Boolean value) throws Exception {
-        if (value != null && value) {
+        if(value == null) {
+            return "null";
+        } else if (value) {
             return "True";
         }
         return "False";
