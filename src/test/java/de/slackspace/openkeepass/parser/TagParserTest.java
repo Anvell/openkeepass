@@ -23,9 +23,13 @@ public class TagParserTest {
     @Test
     public void whenTagStringInputIsSeparatedStringShouldReturnTags() {
         TagParser parser = createParser();
-        List<String> tags = parser.fromTagString("a;b;c");
+        List<String> tags1 = parser.fromTagString("a;b;c");
+        List<String> tags2 = parser.fromTagString("a, b, ,c");
+        List<String> tags3 = parser.fromTagString(",a:b;c: ");
 
-        assertThat(tags, hasItems("a", "b", "c"));
+        assertThat(tags1, hasItems("a", "b", "c"));
+        assertThat(tags2, hasItems("a", "b", "c"));
+        assertThat(tags3, hasItems("a", "b", "c"));
     }
 
     @Test
